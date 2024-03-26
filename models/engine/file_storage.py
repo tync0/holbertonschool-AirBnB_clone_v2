@@ -62,3 +62,4 @@ class FileStorage:
 
         if obj in FileStorage.__objects:
             del FileStorage.__objects[obj]
+            return
