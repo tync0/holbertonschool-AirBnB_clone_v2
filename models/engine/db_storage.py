@@ -28,14 +28,14 @@ class DBStorage:
         """creates new engine instances"""
         self.__engine = create_engine(sql.format(user, pwd, host, db),
                                       pool_pre_ping=True)
-        if get('HBNB_ENV') == 'test':
+        if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(bind=self.__engine, checkfirst=True)
 
     def all(self, cls=None):
         """queries db for objects"""
         dictonary = {}
         if cls:
-            cls_list = cls
+            cls_list = [cls]
         else:
             cls_list = [User, State, City, Amenity, Place, Review]
 
