@@ -57,11 +57,11 @@ class FileStorage:
 
     def delete(self, obj=None):
         """ deletes obj from dictionary """
-        if obj is None:
-            return
-
-        for key, val in FileStorage.__objects.items():
-            if val == obj:
-                del FileStorage.__objects[key]
-                self.save()
-                return
+        if obj:
+            for key, val in FileStorage.__objects.items():
+                if val == obj:
+                    del FileStorage.__objects[key]
+                    self.save()
+                    return
+        else:
+            pass
