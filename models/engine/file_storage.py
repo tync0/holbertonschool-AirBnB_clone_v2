@@ -60,5 +60,8 @@ class FileStorage:
         if obj is None:
             return
 
-        if obj in FileStorage.__objects:
-            del FileStorage.__objects[obj]
+        for key, val in FileStorage.__objects.items():
+            if val == obj:
+                del FileStorage.__objects[key]
+                self.save()
+                return
