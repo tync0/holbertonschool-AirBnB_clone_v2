@@ -61,3 +61,7 @@ class FileStorage:
             for key, val in FileStorage.__objects.items():
                 if val == obj:
                     del FileStorage.__objects[key]
+                    self.save()
+                    return
+        else:
+            pass
