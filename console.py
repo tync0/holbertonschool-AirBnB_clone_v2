@@ -157,11 +157,9 @@ class HBNBCommand(cmd.Cmd):
 
             params[key] = val
 
-        try:
             new_instance = cls_constructor(**params)
             new_instance.save()
-        except Exception:
-            pass
+            print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
