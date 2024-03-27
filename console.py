@@ -140,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
                 continue
 
             key, val = key_val
-            val = val.replace('_', ' ').replace('\\"', '"')
+            val = val.replace('_', ' ').replace('\"', '"')
 
             if val.startswith('"') and val.endswith('"'):
                 val = val[1:-1]
@@ -157,14 +157,10 @@ class HBNBCommand(cmd.Cmd):
 
             params[key] = val
 
-        try:
-            new_instance = cls_constructor(**params)
-            new_instance.save()
-            print(new_instance.id)
-        except Exception:
-            pass
+        new_instance = cls_constructor(**params)
+        new_instance.save()
+        print(new_instance.id)
 
-        return None
 
     def help_create(self):
         """ Help information for the create method """
