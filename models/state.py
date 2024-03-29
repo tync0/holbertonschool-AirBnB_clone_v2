@@ -8,16 +8,22 @@ from sqlalchemy.orm import relationship
 from os import getenv
 
 
-if getenv('HBNB_TYPE_STORAGE') == 'db':
+if getenv("HBNB_TYPE_STORAGE") == "db":
+
     class State(BaseModel, Base):
-        """ State class """
-        __tablename__ = 'states'
+        """State class"""
+
+        __tablename__ = "states"
         name = Column(String(128), nullable=False)
-        cities = relationship('City', backref='state',
-                              cascade='all, delete, delete-orphan')
+        cities = relationship(
+            "City", backref="state", cascade="all, delete, delete-orphan"
+        )
+
 else:
+
     class State(BaseModel):
-        """ State class """
+        """State class"""
+
         name = ""
 
         @property
