@@ -44,7 +44,11 @@ class Place(BaseModel, Base):
         ),
     )
 
-    amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
+    amenities = relationship(
+        "Amenity",
+        secondary="place_amenity",
+        viewonly=False,
+    )
     amenity_ids = []
     if getenv("HBNB_TYPE_STORAGE") != "db":
 
