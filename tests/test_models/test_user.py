@@ -12,23 +12,23 @@ class test_User(test_basemodel):
         super().__init__(*args, **kwargs)
         self.name = "User"
         self.value = User
+        self.test_user = User(first_name='test',
+                              last_name='test',
+                              email='test@test.com',
+                              password='12345')
 
     def test_first_name(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.first_name), str)
+        self.assertEqual(type(self.test_user.first_name), str)
 
     def test_last_name(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.last_name), str)
+        self.assertEqual(type(self.test_user.last_name), str)
 
     def test_email(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.email), str)
+        self.assertEqual(type(self.test_user.email), str)
 
     def test_password(self):
         """ """
-        new = self.value()
-        self.assertEqual(type(new.password), str)
+        self.assertEqual(type(self.test_user.password), str)
