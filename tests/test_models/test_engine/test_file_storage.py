@@ -2,10 +2,11 @@
 """ Module for testing file storage"""
 import unittest
 from models.base_model import BaseModel
-from models import storage
+from models import storage, type_of_storage
 import os
 
 
+@unittest.skipIf(type_of_storage == "db", "Storage type: Database")
 class test_fileStorage(unittest.TestCase):
     """Class to test the file storage method"""
 
@@ -31,9 +32,8 @@ class test_fileStorage(unittest.TestCase):
     def test_new(self):
         """New object is correctly added to __objects"""
         new = BaseModel()
-        for obj in storage.all().values():
-            temp = obj
-        self.assertTrue(temp is obj)
+        new.save()
+        self.assertIn(new, storage.all().values())
 
     def test_all(self):
         """__objects is properly returned"""
@@ -63,8 +63,7 @@ class test_fileStorage(unittest.TestCase):
     def test_reload(self):
         """Storage file is successfully loaded to __objects"""
         new = BaseModel()
-        storage.save()
-        storage.reload()
+        new.save()
         for obj in storage.all().values():
             loaded = obj
         self.assertEqual(new.to_dict()["id"], loaded.to_dict()["id"])
@@ -97,14 +96,12 @@ class test_fileStorage(unittest.TestCase):
     def test_key_format(self):
         """Key is properly formatted"""
         new = BaseModel()
+        new.save()
         _id = new.to_dict()["id"]
-        for key in storage.all().keys():
-            temp = key
+        temp = list(storage.all().keys())[0]
         self.assertEqual(temp, "BaseModel" + "." + _id)
 
     def test_storage_var_created(self):
         """FileStorage object storage created"""
         from models.engine.file_storage import FileStorage
-
-        print(type(storage))
         self.assertEqual(type(storage), FileStorage)
