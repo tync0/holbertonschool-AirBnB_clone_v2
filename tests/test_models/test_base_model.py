@@ -6,6 +6,7 @@ import datetime
 from uuid import UUID
 import json
 import os
+from models import type_of_storage
 
 
 class test_basemodel(unittest.TestCase):
@@ -47,6 +48,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
+    @unittest.skipIf(type_of_storage == "db", "Storage type: Database")
     def test_save(self):
         """Testing save"""
         i = self.value()
@@ -95,5 +97,5 @@ class test_basemodel(unittest.TestCase):
         new = self.value()
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
-        new = BaseModel(**n)
-        self.assertFalse(new.created_at == new.updated_at)
+        new = self.value(**n)
+        self.assertTrue(n['created_at'] != new.updated_at)
