@@ -70,3 +70,6 @@ class FileStorage:
                     return
         else:
             pass
+
+    def close(self):
+        self.reload()
